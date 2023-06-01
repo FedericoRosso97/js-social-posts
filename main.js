@@ -58,11 +58,11 @@ const posts = [
 ];
 
 
-const postList=document.querySelector('.posts-list')
+const postList=document.querySelector('.posts-list');
 
 posts.forEach(element => {
-    let post=document.createElement('div')
-    post.classList.add('post')
+    let post=document.createElement('div');
+    post.classList.add('post');
     postList.append(post);
     post.innerHTML +=`
             <div class="post__header>
@@ -88,34 +88,35 @@ posts.forEach(element => {
                             <span class="like-button__label">Mi Piace</span>
                         </a>
                     </div>
-                    <div class="likes__counter">
-                        Piace a <b id="likes-counter" class="js-likes-counter">${element.likes}</b> persone
+                    <div class="likes-counter">
+                        Piace a <b id="${element.id}" class="js-likes-counter">${element.likes}</b> persone
                     </div>
                 </div> 
             </div>            
     `
-    
 });
-let Likes=0;
-const likesButton=document.querySelectorAll(".likes__cta");
- 
+const likesButtons=document.querySelectorAll(".like-button");
 
+const likesCounters=document.querySelectorAll(".js-likes-counter");
 likedPosts=[];
 for(let i=0;i<posts.length;i++){
-   
-    likesButton[i].addEventListener('click',function(){
-        likeCounter=document.getElementById("likes-counter");
-        console.log(likeCounter);
+    let postsLikes=posts[i].likes;
 
-        Likes++;
-        console.log(Likes)
-       likeCounter.innerHTML=`
-        <b id="like-counter-1" class="js-likes-counter">${Likes+80}</b> persone
-    `
+    likesButtons[i].addEventListener('click',function(){
+    event.preventDefault();
+    
+    postsLikes=postsLikes+1;
+    console.log(postsLikes);
+    
     likedPosts.push(posts[i].id);
     console.log(likedPosts);
+
+    const likesCounters=document.querySelectorAll(".js-likes-counter");
+    likesCounters[i].innerHTML=postsLikes;
+    console.log(likesCounters)
+
+    likesButtons[i].classList.toggle('like-button--liked');
     })
-       
 }
 
   
